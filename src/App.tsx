@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import "firebase/firestore";
 import { getUsers } from "./plugins/firebase";
-import { User } from "./plugins/firebase";
+import { User } from "./interfaces";
 
 const App = () => {
   // addUser();
@@ -14,13 +14,12 @@ const App = () => {
     }
   ]);
 
-  const asyncFunc = async () => {
-    const result = await getUsers();
-    setUsers(result);
+  const asyncSetUsers = async () => {
+    setUsers(await getUsers());
   };
 
   useEffect(() => {
-    asyncFunc();
+    asyncSetUsers();
   }, []);
 
   const arr = ["Google", "Amazon", "Facebook", "Apple"];
