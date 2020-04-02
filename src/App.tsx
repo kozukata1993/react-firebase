@@ -1,43 +1,36 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import { firestore } from "./plugins/firebase";
+import "firebase/firestore";
+import { getUsers } from "./plugins/firebase";
+import { User } from "./plugins/firebase";
 
-function App() {
-  firestore
-    .collection("articles")
-    .doc("react")
-    .get()
-    .then(doc => {
-      if (doc.exists) {
-        console.log("Document data:", doc.data());
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-      }
-    })
-    .catch(function(error) {
-      console.log("Error getting document:", error);
-    });
+const App = () => {
+  // addUser();
+  const [users, setUsers] = useState<User[]>([
+    {
+      first: "jack",
+      last: "Lovelace",
+      born: 1915
+    }
+  ]);
+
+  const asyncFunc = async () => {
+    const result = await getUsers();
+    setUsers(result);
+  };
+
+  useEffect(() => {
+    asyncFunc();
+  }, []);
+
+  const arr = ["Google", "Amazon", "Facebook", "Apple"];
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>{arr[0]}</h2>
+      <h2>{users[0].first}</h2>
     </div>
   );
-}
+};
 
 export default App;
