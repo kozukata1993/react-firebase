@@ -3,6 +3,8 @@ import "./App.css";
 import "firebase/firestore";
 import { getUsers } from "./plugins/firebase";
 import { User } from "./interfaces";
+import { FormPropsTextFields } from "./components/loginForm";
+import { DenseAppBar } from "./components/appBar";
 
 const App = () => {
   // addUser();
@@ -10,8 +12,8 @@ const App = () => {
     {
       first: "jack",
       last: "Lovelace",
-      born: 1915
-    }
+      born: 1915,
+    },
   ]);
 
   const asyncSetUsers = async () => {
@@ -22,12 +24,11 @@ const App = () => {
     asyncSetUsers();
   }, []);
 
-  const arr = ["Google", "Amazon", "Facebook", "Apple"];
-
   return (
     <div className="App">
-      <h2>{arr[0]}</h2>
+      <DenseAppBar />
       <h2>{users[0].first}</h2>
+      <FormPropsTextFields />
     </div>
   );
 };
