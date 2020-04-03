@@ -12,15 +12,10 @@ const useStyles = makeStyles((theme: Theme) =>
         width: "25ch",
       },
     },
-    button: {
-      "& > *": {
-        margin: theme.spacing(1),
-      },
-    },
   }),
 );
 
-export const FormPropsTextFields = () => {
+export const LoginForm = () => {
   const classes = useStyles();
   const { register, handleSubmit } = useForm();
   const onSubmit = (data: any) => console.log(data);
@@ -39,7 +34,7 @@ export const FormPropsTextFields = () => {
         />
       </div>
       <Button variant="outlined" color="primary" type="submit">
-        Primary
+        Submit
       </Button>
     </form>
   );

@@ -3,7 +3,7 @@ import "./App.css";
 import "firebase/firestore";
 import { getUsers } from "./plugins/firebase";
 import { User } from "./interfaces";
-import { FormPropsTextFields } from "./components/loginForm";
+import { LoginForm } from "./components/loginForm";
 import { DenseAppBar } from "./components/appBar";
 
 const App = () => {
@@ -22,13 +22,13 @@ const App = () => {
 
   useEffect(() => {
     asyncSetUsers();
+    console.log(users);
   }, []);
 
   return (
     <div className="App">
       <DenseAppBar />
-      <h2>{users[0].first}</h2>
-      <FormPropsTextFields />
+      <LoginForm />
     </div>
   );
 };
