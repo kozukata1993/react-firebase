@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: theme.spacing(1),
       },
     },
-  })
+  }),
 );
 
 export const FormPropsTextFields = () => {
@@ -26,20 +26,9 @@ export const FormPropsTextFields = () => {
   const onSubmit = (data: any) => console.log(data);
 
   return (
-    <form
-      className={classes.root}
-      onSubmit={handleSubmit(onSubmit)}
-      noValidate
-      autoComplete="off"
-    >
+    <form className={classes.root} onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
       <div>
-        <TextField
-          inputRef={register}
-          required
-          id="standard-required"
-          label="Name"
-          name="name"
-        />
+        <TextField inputRef={register} required id="standard-required" label="Name" name="name" />
         <TextField
           inputRef={register}
           id="standard-password-input"
