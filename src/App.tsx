@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import "firebase/firestore";
-import { getUsers } from "./plugins/firebase";
-import { User } from "./interfaces";
+import { getArticles } from "./firebase/firestore";
+import { getCurrentUser } from "./firebase/auth";
+import { Article } from "./interfaces";
 import { LoginForm } from "./components/loginForm";
 import { DenseAppBar } from "./components/appBar";
 
 const App = () => {
-  // addUser();
-  const [users, setUsers] = useState<User[]>([
+  const [articles, setArticles] = useState<Article[]>([
     {
-      first: "jack",
-      last: "Lovelace",
-      born: 1915,
+      title: "Init title",
+      content: "Init content",
     },
   ]);
 
-  const asyncSetUsers = async () => {
-    setUsers(await getUsers());
+  const asyncSetArticles = async () => {
+    setArticles(await getArticles());
   };
 
   useEffect(() => {
-    asyncSetUsers();
-    console.log(users);
+    // asyncSetArticles();
+    console.log(getCurrentUser());
   }, []);
 
   return (
