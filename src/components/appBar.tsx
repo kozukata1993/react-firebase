@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { FC } from "react";
 import { AppBar, Toolbar, IconButton, Typography, Menu, MenuItem } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { getCurrentUser } from "../firebase/auth";
+import { AppBarProps } from "../interfaces";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,9 +17,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const DenseAppBar = () => {
+export const DenseAppBar: FC<AppBarProps> = ({ currentUser }) => {
   const classes = useStyles();
-  const currentUser = getCurrentUser();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
 
@@ -29,6 +29,7 @@ export const DenseAppBar = () => {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
   let menuElement: JSX.Element;
   if (currentUser) {
     menuElement = (
@@ -64,6 +65,7 @@ export const DenseAppBar = () => {
             Firebase React sample app
           </Typography>
           <div className={classes.grow} />
+          {currentUser?.email}
           <IconButton
             edge="end"
             aria-label="account of current user"

@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from "react";
+import { FC } from "react";
 import "./App.css";
 import "firebase/firestore";
-import { getArticles } from "./firebase/firestore";
-import { getCurrentUser } from "./firebase/auth";
-import { Article } from "./interfaces";
+import { authentication } from "./firebase/index";
+import { User } from "./interfaces";
 import { LoginForm } from "./components/loginForm";
 import { DenseAppBar } from "./components/appBar";
 
-const App = () => {
-  const [articles, setArticles] = useState<Article[]>([
-    {
-      title: "Init title",
-      content: "Init content",
-    },
-  ]);
-
-  const asyncSetArticles = async () => {
-    setArticles(await getArticles());
-  };
-
+const App: FC = () => {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   useEffect(() => {
-    // asyncSetArticles();
-    console.log(getCurrentUser());
-  }, []);
+    console.log(currentUser?.email);
+  });
+
+  authentication.onAuthStateChanged(function (user) {
+    setCurrentUser(user);
+  });
 
   return (
     <div className="App">
-      <DenseAppBar />
+      <DenseAppBar currentUser={currentUser} />
       <LoginForm />
     </div>
   );

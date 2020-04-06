@@ -1,9 +1,10 @@
 import React from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { createUser, login } from "../firebase/auth";
+import { signUp, login } from "../firebase/auth";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,16 +17,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-export const LoginForm = () => {
+export const LoginForm: FC = ({}) => {
   const classes = useStyles();
   const { register, errors, handleSubmit } = useForm();
   const onSubmit = ({ email, password }: any) => {
-    createUser(email, password);
+    signUp(email, password);
   };
   const onLogin = ({ email, password }: any) => {
-    console.log(1);
     login(email, password);
-    console.log(2);
   };
   const isSignup = false;
 

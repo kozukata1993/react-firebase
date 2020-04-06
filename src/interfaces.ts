@@ -6,3 +6,7 @@ export interface Article {
 }
 
 export interface User extends firebase.User {}
+
+export interface AppBarProps {
+  currentUser: User | null;
+}
