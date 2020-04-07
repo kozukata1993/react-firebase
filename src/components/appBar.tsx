@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { FC } from "react";
-import { AppBar, Toolbar, IconButton, Typography, Menu, MenuItem } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Typography, Button } from "@material-ui/core";
 import { AccountCircle } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { AppBarProps } from "../interfaces";
+import { logout } from "../firebase/auth";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
       flexGrow: 1,
     },
-    menuButton: {
+    button: {
       marginRight: theme.spacing(2),
     },
   }),
@@ -19,65 +20,39 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const DenseAppBar: FC<AppBarProps> = ({ currentUser }) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const isMenuOpen = Boolean(anchorEl);
 
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  let menuElement: JSX.Element;
-  if (currentUser) {
-    menuElement = (
-      <>
-        <MenuItem onClick={handleMenuClose}>email</MenuItem>
-        <MenuItem onClick={handleMenuClose}>name</MenuItem>
-      </>
-    );
-  } else {
-    menuElement = <MenuItem onClick={handleMenuClose}>Login</MenuItem>;
-  }
-
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      {menuElement}
-    </Menu>
-  );
   return (
     <div className={classes.grow}>
       <AppBar position="static" color="primary">
         <Toolbar variant="dense">
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.button} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit">
             Firebase React sample app
           </Typography>
           <div className={classes.grow} />
-          {currentUser?.email}
+          <Typography
+            className={classes.button}
+            variant="subtitle1"
+            color="inherit"
+            display="block"
+          >
+            {currentUser?.email}
+          </Typography>
+          <Button variant="outlined" color="inherit" onClick={() => logout()}>
+            Log Out
+          </Button>
           <IconButton
             edge="end"
             aria-label="account of current user"
             aria-haspopup="true"
-            onClick={handleProfileMenuOpen}
             color="inherit"
           >
             <AccountCircle />
           </IconButton>
         </Toolbar>
       </AppBar>
-      {renderMenu}
     </div>
   );
 };

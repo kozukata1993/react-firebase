@@ -13,7 +13,7 @@ const App: FC = () => {
     console.log(currentUser?.email);
   });
 
-  authentication.onAuthStateChanged(function (user) {
+  authentication().onAuthStateChanged(function (user) {
     setCurrentUser(user);
   });
 
