@@ -7,16 +7,14 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { AppBarProps } from "../interfaces";
 import { logout } from "../firebase/auth";
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    grow: {
-      flexGrow: 1,
-    },
-    button: {
-      marginRight: theme.spacing(2),
-    },
-  }),
-);
+const useStyles = makeStyles((theme: Theme) => ({
+  grow: {
+    flexGrow: 1,
+  },
+  button: {
+    marginRight: theme.spacing(2),
+  },
+}));
 
 export const DenseAppBar: FC<AppBarProps> = ({ currentUser }) => {
   const classes = useStyles();
